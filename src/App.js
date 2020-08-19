@@ -1,11 +1,22 @@
 import React from 'react';
-import Home from './Home/Home';
+import Home from './Pages/Home';
+import Results from './Pages/FilteredResults';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 function App() {
 	return (
-		<div className="App">
-			<Home />
-		</div>
+		<Router>
+			<div className="App">
+				<Switch>
+					<Route exact path="/">
+						<Home />
+					</Route>
+					<Route path="/results">
+						<Results />
+					</Route>
+				</Switch>
+			</div>
+		</Router>
 	);
 }
 
