@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Typography, IconButton, CardContent, makeStyles, Grid } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
+import { RecipeDetailsContext } from '../../Contexts/RecipeDetailsContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -15,7 +16,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = () => {
 	const classes = useStyles();
-	const [ servings, setServings ] = useState(4);
+	const { data } = useContext(RecipeDetailsContext);
+	const [ servings, setServings ] = useState(data.servings);
 
 	const decrement = () => {
 		if (servings < 2) return;

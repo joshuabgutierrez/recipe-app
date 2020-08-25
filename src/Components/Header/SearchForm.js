@@ -3,6 +3,9 @@ import LocalDiningIcon from '@material-ui/icons/LocalDining';
 import SearchIcon from '@material-ui/icons/Search';
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
+import { useHistory } from 'react-router-dom';
+import { useContext } from 'react';
+import { InitialValuesContext } from '../../Contexts/InitialValuesContext';
 
 const SearchInputContainer = styled.form`
 	background-color: #ffffff;
@@ -13,6 +16,12 @@ const SearchInputContainer = styled.form`
 
 	& > * {
 		margin: 0 0.1em;
+	}
+
+	@media (max-width: 580px) {
+		width: 100%;
+		max-width: 270px;
+		margin: 1em auto 0em auto;
 	}
 `;
 
@@ -29,21 +38,34 @@ const SearchMealInput = styled.input`
 	border: none;
 	outline: none;
 	border-right: 1px solid rgba(0, 0, 0, 0.2);
+	${(props) => props.error};
 `;
 
 const CategoryDropdown = styled.select`
 	flex: 25%;
 	border: none;
 	outline: none;
+
+	@media (max-width: 580px) {
+		display: none;
+	}
 `;
 
 const SearchForm = () => {
 	const [ input, setInput ] = useState('');
 	const [ category, setCategory ] = useState('');
+	const [ errorStyles, setErrorStyles ] = useState();
+	let history = useHistory();
+	const { getValues } = useContext(InitialValuesContext);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log('I just sent a query');
+		if (input === '') {
+			setErrorStyles({ 'background-color': '#ddd', border: '1px solid red' });
+		} else {
+			getValues(input, category);
+			history.push('/results');
+		}
 	};
 
 	return (
@@ -51,15 +73,20 @@ const SearchForm = () => {
 			<StyledLocalDiningIcon color="primary" />
 			<SearchMealInput
 				type="text"
-				placeholder="Enter a recipe"
+				placeholder="What do you have in your fridge?"
 				value={input}
 				onChange={(e) => setInput(e.target.value)}
+				error={input === '' && errorStyles}
 			/>
 			<CategoryDropdown value={category} onChange={(e) => setCategory(e.target.value)}>
-				<option value="category">Category</option>
+				<option aria-label="None" value="" disabled>
+					Meal Type
+				</option>
+				<option value="appetizer">Appetizer</option>
 				<option value="breakfast">Breakfast</option>
-				<option value="lunch">Lunch</option>
-				<option value="dinner">Dinner</option>
+				<option value="mainCourse">Main Course</option>
+				<option value="salad">Salad</option>
+				<option value="beverage">Beverage</option>
 			</CategoryDropdown>
 			<Button variant="contained" color="primary" type="submit">
 				<StyledSearchIcon />

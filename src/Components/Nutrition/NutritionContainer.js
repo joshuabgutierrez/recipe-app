@@ -6,18 +6,20 @@ const StyledContainer = styled.div`
 	background-color: #dddddd;
 	padding: 0.2em;
 	border-radius: 5px;
-	width: 100%;
-	max-width: 100px;
+	width: 150px;
+	max-width: 100%;
 `;
 
 const SubContainer = styled.div`background-color: #ffffff;`;
 
-const NutritionContainer = () => {
+const NutritionContainer = ({ title, amount, unit }) => {
 	return (
 		<StyledContainer>
-			<Typography align="center">Calories</Typography>
+			<Typography align="center">{title}</Typography>
 			<SubContainer>
-				<Typography align="center">200</Typography>
+				<Typography align="center">
+					{amount} {unit}
+				</Typography>
 			</SubContainer>
 		</StyledContainer>
 	);

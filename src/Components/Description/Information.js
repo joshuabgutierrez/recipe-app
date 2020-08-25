@@ -2,6 +2,8 @@ import React from 'react';
 import { Grid, Typography, IconButton } from '@material-ui/core';
 import ShareIcon from '@material-ui/icons/Share';
 import styled from 'styled-components';
+import { useContext } from 'react';
+import { RecipeDetailsContext } from '../../Contexts/RecipeDetailsContext';
 
 const StyledIconButton = styled(IconButton)`
     color: #fff;
@@ -14,6 +16,7 @@ const StyledIconButton = styled(IconButton)`
 `;
 
 const Information = () => {
+	const { data } = useContext(RecipeDetailsContext);
 	return (
 		<div style={{ margin: '1em 0' }}>
 			<Grid container justify="space-between">
@@ -21,7 +24,7 @@ const Information = () => {
 					<Grid container spacing={2}>
 						<Grid item md={4}>
 							<Typography variant="subtitle1">Total time</Typography>
-							<Typography variant="subtitle1">10m</Typography>
+							<Typography variant="subtitle1">{data.readyInMinutes}m</Typography>
 						</Grid>
 						<Grid item md={4}>
 							<Typography variant="subtitle1">Prep time</Typography>

@@ -73,7 +73,7 @@ const SuggestedRecipes = () => {
 			async function getData() {
 				try {
 					const response = await Axios.get(
-						`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&query=${query}`
+						`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&query=${query}&addRecipeInformation=true`
 					);
 					setResults(response.data.results);
 				} catch (error) {
@@ -111,13 +111,13 @@ const SuggestedRecipes = () => {
 					results.map((result) => (
 						<Grid item key={result.id}>
 							<RecipeContainer
+								id={result.id}
 								image={result.image}
-								label={result.title}
-								source={result.author}
-								url={'Not yet'}
-								calories={180}
-								servings={4}
-								totalDaily={10}
+								title={result.title}
+								source={result.sourceName}
+								calories={400}
+								servings={result.servings}
+								time={result.readyInMinutes}
 							/>
 						</Grid>
 					))

@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Information from './Information';
+import { RecipeDetailsContext } from '../../Contexts/RecipeDetailsContext';
 
 const Description = () => {
+	const { data } = useContext(RecipeDetailsContext);
+	const { title, summary } = data;
+
+	function createMarkup() {
+		return { __html: summary };
+	}
+
 	return (
 		<div>
-			<Typography variant="h4">Chocolate and peanut butter overnight oats</Typography>
+			<Typography variant="h4">{title}</Typography>
 			<Information />
-			<Typography variant="body1">
-				Want a treat for breakfast? Give these overnight oats a try, it's like eating a dessert for brekkie. The
-				combination fo peanut butter and cocoa is amazing; just don't add too much cocoa as it's quite bitter
-			</Typography>
+			<Typography variant="body1" dangerouslySetInnerHTML={createMarkup()} />
 		</div>
 	);
 };

@@ -10,6 +10,11 @@ import Grid from '@material-ui/core/Grid';
 import { useState } from 'react';
 import styled from 'styled-components';
 import useSearchRecipes from '../../Hooks/useSearchRecipes';
+import { useContext } from 'react';
+import { FilteredResultsContext } from '../../Contexts/FilteredResultsContext';
+import { InitialValuesContext } from '../../Contexts/InitialValuesContext';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 	formControl: {
@@ -18,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
 	range: {
 		width: '100%',
 		maxWidth: '120px'
+	},
+	button: {
+		marginRight: '1em'
 	}
 }));
 
@@ -32,9 +40,10 @@ const StyledForm = styled.form`
 `;
 
 const FilterArea = () => {
+	const { input, category } = useContext(InitialValuesContext);
 	const classes = useStyles();
-	const [ query, setQuery ] = useState('');
-	const [ mealType, setMealType ] = useState('');
+	const [ query, setQuery ] = useState(input);
+	const [ mealType, setMealType ] = useState(category);
 	const [ dietType, setDietType ] = useState('');
 	const [ cuisine, setCuisine ] = useState('');
 	const [ intolerances, setIntolerances ] = useState([]);
@@ -60,10 +69,12 @@ const FilterArea = () => {
 	};
 
 	const { recipes } = useSearchRecipes(formValues);
+	const { getData } = useContext(FilteredResultsContext);
+	let history = useHistory();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(recipes);
+		getData(recipes);
 	};
 
 	return (
@@ -194,7 +205,17 @@ const FilterArea = () => {
 					</FormControl>
 				</Grid>
 				<Grid item md={12}>
-					<Button variant="contained" color="primary" type="submit">
+					<Button
+						size="small"
+						variant="contained"
+						color="secondary"
+						className={classes.button}
+						startIcon={<ArrowBackIcon />}
+						onClick={() => history.push('/')}
+					>
+						Home
+					</Button>
+					<Button size="small" variant="contained" color="primary" type="submit">
 						Submit
 					</Button>
 				</Grid>

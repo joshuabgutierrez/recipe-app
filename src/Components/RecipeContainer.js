@@ -5,6 +5,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -46,14 +47,14 @@ const ContentColumn = styled.div`
 	}
 `;
 
-const RecipeContainer = ({ image, label, source, url, calories, servings, totalDaily }) => {
+const RecipeContainer = ({ id, image, title, source, calories, servings, time }) => {
 	const classes = useStyles();
 
 	return (
 		<Card className={classes.root}>
 			<CardMedia className={classes.media} image={image} title="Pancakes" />
 			<Typography className={classes.marginTop} variant="h6" align="center">
-				{label}
+				<Link to={`results/${id}`}>{title}</Link>
 			</Typography>
 			<Typography variant="body2" align="center">
 				By {source}
@@ -64,8 +65,8 @@ const RecipeContainer = ({ image, label, source, url, calories, servings, totalD
 					<p>Calories / Serving</p>
 				</ContentColumn>
 				<ContentColumn>
-					<span>{totalDaily}%</span>
-					<p>Daily Value</p>
+					<span>{time} Min</span>
+					<p>Time</p>
 				</ContentColumn>
 				<ContentColumn>
 					<span>{servings}</span>
