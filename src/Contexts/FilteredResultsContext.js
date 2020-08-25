@@ -1,12 +1,13 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 
-const initialResults = {
-	results: [],
-	loading: true
-};
-
-export const FilteredResultsContext = createContext(initialResults);
+export const FilteredResultsContext = createContext();
 
 export const FilteredResultsContextProvider = ({ children }) => {
-	return <FilteredResultsContext.Provider value="">{children}</FilteredResultsContext.Provider>;
+	const [ results, setResults ] = useState([]);
+
+	function getData(results) {
+		return setResults(results.data.results);
+	}
+
+	return <FilteredResultsContext.Provider value={{ getData, results }}>{children}</FilteredResultsContext.Provider>;
 };
