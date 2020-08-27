@@ -28,11 +28,11 @@ const Information = () => {
 						</Grid>
 						<Grid item md={4}>
 							<Typography variant="subtitle1">Prep time</Typography>
-							<Typography variant="subtitle1">10m</Typography>
+							<Typography variant="subtitle1">{data.preparationMinutes || '0'}m</Typography>
 						</Grid>
 						<Grid item md={4}>
 							<Typography variant="subtitle1">Cook time</Typography>
-							<Typography variant="subtitle1">0m</Typography>
+							<Typography variant="subtitle1">{data.cookingMinutes || '0'}m</Typography>
 						</Grid>
 					</Grid>
 				</Grid>

@@ -7,10 +7,13 @@ import StepContent from '@material-ui/core/StepContent';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import { useContext } from 'react';
+import { RecipeDetailsContext } from '../../Contexts/RecipeDetailsContext';
+const converter = require('number-to-words');
 
 const useStyles = makeStyles((theme) => ({
 	root: {
-		width: '100%'
+		Width: '100%'
 	},
 	button: {
 		marginTop: theme.spacing(1),
@@ -24,27 +27,23 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-function getSteps() {
-	return [ 'Step One', 'Step Two', 'Step Three' ];
+function getSteps(allSteps) {
+	const steps = allSteps.map((step) => `Step ${converter.toWords(step)}`);
+	return steps;
 }
 
-function getStepContent(step) {
-	switch (step) {
-		case 0:
-			return `Using a teaspoon, mix all the ingredients together in a food container or a medium sized mixing bowl.`;
-		case 1:
-			return `Spoon the mixture into a food container (if you haven't donde so already) and place the lid on the container.`;
-		case 2:
-			return `Finally, put the container in the fridge overnight (or at least 6 hours) before eating.`;
-		default:
-			return 'Unknown step';
-	}
+function getStepContent(step, instructions) {
+	return instructions[step];
 }
 
 export default function Steps() {
 	const classes = useStyles();
 	const [ activeStep, setActiveStep ] = useState(0);
-	const steps = getSteps();
+	const { getInstructions } = useContext(RecipeDetailsContext);
+	const actualSteps = getInstructions().map((step) => step.number);
+	const actualInstructions = getInstructions().map((step) => step.step);
+
+	const steps = getSteps(actualSteps);
 
 	const handleNext = () => {
 		setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -65,7 +64,7 @@ export default function Steps() {
 					<Step key={label}>
 						<StepLabel>{label}</StepLabel>
 						<StepContent>
-							<Typography>{getStepContent(index)}</Typography>
+							<Typography>{getStepContent(index, actualInstructions)}</Typography>
 							<div className={classes.actionsContainer}>
 								<div>
 									<Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>

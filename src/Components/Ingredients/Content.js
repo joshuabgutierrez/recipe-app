@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { CardContent } from '@material-ui/core';
 import CheckCircleRoundedIcon from '@material-ui/icons/CheckCircleRounded';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
+import { RecipeDetailsContext } from '../../Contexts/RecipeDetailsContext';
 
 const StyledCheckCircleRoundedIcon = styled(CheckCircleRoundedIcon)`
     color: ${({ theme }) => theme.palette.primary.main};
@@ -15,16 +16,17 @@ const StyledIngredient = styled.div`
 `;
 
 const Content = () => {
+	const { getIngredients } = useContext(RecipeDetailsContext);
+	const ingredients = getIngredients();
+
 	return (
 		<CardContent>
-			<StyledIngredient>
-				<StyledCheckCircleRoundedIcon />
-				<Typography>45g rolled oats</Typography>
-			</StyledIngredient>
-			<StyledIngredient>
-				<StyledCheckCircleRoundedIcon />
-				<Typography>45g rolled oats</Typography>
-			</StyledIngredient>
+			{ingredients.map((ingredient) => (
+				<StyledIngredient key={ingredient.id}>
+					<StyledCheckCircleRoundedIcon />
+					<Typography>{ingredient.original}</Typography>
+				</StyledIngredient>
+			))}
 		</CardContent>
 	);
 };

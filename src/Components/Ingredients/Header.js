@@ -26,6 +26,10 @@ const Header = () => {
 		}
 	};
 
+	const increment = () => {
+		setServings(servings + 1);
+	};
+
 	return (
 		<CardContent>
 			<Typography variant="h4" style={{ fontWeight: 'bold' }}>
@@ -41,7 +45,7 @@ const Header = () => {
 					<Typography style={{ margin: '0 0.5em' }}>Servings {servings}</Typography>
 				</Grid>
 				<Grid item md={2}>
-					<IconButton className={classes.root} size="small" onClick={() => setServings(servings + 1)}>
+					<IconButton className={classes.root} size="small" onClick={() => increment()}>
 						<AddIcon />
 					</IconButton>
 				</Grid>

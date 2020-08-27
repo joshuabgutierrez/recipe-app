@@ -2,6 +2,8 @@ import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
 import UtensilContainer from './UtensilContainer';
 import { makeStyles } from '@material-ui/styles';
+import { useContext } from 'react';
+import { RecipeDetailsContext } from '../../Contexts/RecipeDetailsContext';
 
 const useStyles = makeStyles({
 	marginTop: {
@@ -11,6 +13,11 @@ const useStyles = makeStyles({
 
 const Utensils = () => {
 	const classes = useStyles();
+	const { utensils } = useContext(RecipeDetailsContext);
+
+	function createMarkup() {
+		return { __html: utensils.data };
+	}
 	return (
 		<div className={classes.marginTop}>
 			<Typography variant="h6" style={{ fontWeight: 'bold' }}>
@@ -28,6 +35,7 @@ const Utensils = () => {
 					<UtensilContainer />
 				</Grid>
 			</Grid>
+			<div dangerouslySetInnerHTML={createMarkup()} />
 		</div>
 	);
 };

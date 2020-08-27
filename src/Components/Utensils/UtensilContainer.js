@@ -12,12 +12,12 @@ const StyledContainer = styled.div`
 
 const StyledImage = styled.img`max-width: 100%;`;
 
-const UtensilContainer = () => {
+const UtensilContainer = ({ name, image }) => {
 	return (
 		<StyledContainer>
-			<StyledImage src={blender} alt="blender utensil" />
+			<StyledImage src={image} alt={name} />
 			<Typography variant="body2" align="center">
-				Blender
+				{name}
 			</Typography>
 		</StyledContainer>
 	);
