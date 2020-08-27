@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
 
-const useFetchDetails = (uri) => {
+const useFetchDetails = (uri, equipmentUri) => {
 	const [ data, setData ] = useState(null);
+	const [ utensils, setUtensils ] = useState(null);
 	const [ loading, setLoading ] = useState(true);
 
 	async function fetchData() {
 		const response = await Axios.get(uri);
+		const secondResponse = await Axios.get(equipmentUri);
 		setData(response.data);
+		setUtensils(secondResponse);
 		setLoading(false);
 	}
 
@@ -18,7 +21,7 @@ const useFetchDetails = (uri) => {
 		[ uri ]
 	);
 
-	return { data, loading };
+	return { data, utensils, loading };
 };
 
 export default useFetchDetails;
