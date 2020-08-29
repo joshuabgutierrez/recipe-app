@@ -1,14 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-import { ThemeProvider } from '@material-ui/core';
-import theme from './Styles/Theme';
+const app = require('./app');
 
-ReactDOM.render(
-	<React.StrictMode>
-		<ThemeProvider theme={theme}>
-			<App />
-		</ThemeProvider>
-	</React.StrictMode>,
-	document.getElementById('root')
-);
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  /* eslint-disable no-console */
+  console.log(`Listening: http://localhost:${port}`);
+  /* eslint-enable no-console */
+});

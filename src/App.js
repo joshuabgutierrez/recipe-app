@@ -1,23 +1,32 @@
-import React from 'react';
-import Home from './Pages/Home';
-import Results from './Pages/FilteredResults';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+const express = require('express');
+const morgan = require('morgan');
+const helmet = require('helmet');
+const cors = require('cors');
 
-function App() {
-	return (
-		<Router>
-			<div className="App">
-				<Switch>
-					<Route exact path="/">
-						<Home />
-					</Route>
-					<Route path="/results">
-						<Results />
-					</Route>
-				</Switch>
-			</div>
-		</Router>
-	);
-}
+require('dotenv').config();
 
-export default App;
+const middlewares = require('./middlewares');
+const api = require('./api');
+const recipe = require('./recipe');
+
+const app = express();
+app.set('trust proxy', 1);
+
+app.use(morgan('dev'));
+app.use(helmet());
+app.use(cors());
+app.use(express.json());
+
+app.get('/', (req, res) => {
+	res.json({
+		message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄'
+	});
+});
+
+app.use('/api/v1', api);
+app.use('/recipe', recipe);
+
+app.use(middlewares.notFound);
+app.use(middlewares.errorHandler);
+
+module.exports = app;
