@@ -10,8 +10,9 @@ export const RecipeDetailsContextProvider = ({ children }) => {
 
 	const apiUri = `http://localhost:5000/recipe/details/${id}`;
 	const secondApiUri = `http://localhost:5000/recipe/equipment/${id}`;
+	const thirdUri = `http://localhost:5000/recipe/instructions/${id}`;
 
-	const { data, utensils, loading } = useFetchDetails(apiUri, secondApiUri);
+	const { data, utensils, instructions, loading } = useFetchDetails(apiUri, secondApiUri, thirdUri);
 
 	function getNutrients() {
 		const nutrients = [ 'Calories', 'Carbohydrates', 'Protein', 'Fat', 'Sugar' ];
@@ -34,7 +35,7 @@ export const RecipeDetailsContextProvider = ({ children }) => {
 	}
 
 	function getInstructions() {
-		return data.analyzedInstructions[0].steps;
+		return instructions;
 	}
 
 	return (
