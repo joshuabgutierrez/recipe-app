@@ -24,10 +24,9 @@ export const RecipeDetailsContextProvider = ({ children }) => {
 		data.extendedIngredients.forEach((ingredient) => {
 			let valuesObject = {
 				id: ingredient.id,
-				amount: ingredient.amount,
-				unit: ingredient.unit,
-				originalName: ingredient.originalName,
-				original: ingredient.original
+				amount: ingredient.measures.us.amount,
+				unitShort: ingredient.measures.us.unitShort,
+				originalName: ingredient.originalName
 			};
 			values.push(valuesObject);
 		});

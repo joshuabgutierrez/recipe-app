@@ -20,12 +20,9 @@ const useFetchDetails = (uri, equipmentUri, instructionsUri) => {
 		setLoading(false);
 	}
 
-	useEffect(
-		() => {
-			fetchData();
-		},
-		[ uri ]
-	);
+	useEffect(() => {
+		fetchData();
+	}, []);
 
 	return { data, utensils, instructions, loading };
 };

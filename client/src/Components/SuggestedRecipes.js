@@ -104,7 +104,7 @@ const SuggestedRecipes = () => {
 					</SuggestedButton>
 				))}
 			</RecipeButtonsContainer>
-			<Grid container spacing={2} justify="center">
+			<Grid container spacing={2} justify="center" style={{ maxWidth: '100%' }}>
 				{results.length > 0 ? (
 					results.map((result) => (
 						<Grid item key={result.id}>

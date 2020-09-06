@@ -1,8 +1,15 @@
-import React, { useState, useContext } from 'react';
-import { Typography, IconButton, CardContent, makeStyles, Grid } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import RemoveIcon from '@material-ui/icons/Remove';
-import { RecipeDetailsContext } from '../../Contexts/RecipeDetailsContext';
+import React, { useState, useEffect } from 'react';
+import {
+	Typography,
+	CardContent,
+	makeStyles,
+	Grid,
+	FormControl,
+	FormLabel,
+	RadioGroup,
+	FormControlLabel,
+	Radio
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -10,44 +17,55 @@ const useStyles = makeStyles((theme) => ({
 		color: '#000'
 	},
 	marginTop: {
-		marginTop: '1em'
+		marginTop: '1em',
+		flexGrow: 1,
+		flexDirection: 'column'
+	},
+	flex: {
+		display: 'flex',
+		flexDirection: 'row'
 	}
 }));
 
-const Header = () => {
+const Header = ({ updateServings, currentServings }) => {
 	const classes = useStyles();
-	const { data } = useContext(RecipeDetailsContext);
-	const [ servings, setServings ] = useState(data.servings);
+	const [ sizeSelected, setSizeSelected ] = useState('medium');
 
-	const decrement = () => {
-		if (servings < 2) return;
-		else {
-			setServings(servings - 1);
-		}
-	};
+	function handleChange(e) {
+		setSizeSelected(e.target.value);
+	}
 
-	const increment = () => {
-		setServings(servings + 1);
-	};
+	useEffect(
+		() => {
+			updateServings(sizeSelected);
+		},
+		[ sizeSelected ]
+	);
 
 	return (
 		<CardContent>
 			<Typography variant="h4" style={{ fontWeight: 'bold' }}>
 				Ingredients
 			</Typography>
-			<Grid container alignItems="center" className={classes.marginTop}>
-				<Grid item md={2}>
-					<IconButton className={classes.root} size="small" onClick={() => decrement()}>
-						<RemoveIcon />
-					</IconButton>
+			<Grid container className={classes.marginTop}>
+				<Grid item>
+					<FormControl component="fieldset" style={{ margin: '1em 0', flexDirection: 'row' }}>
+						<FormLabel>Scale your recipe</FormLabel>
+						<RadioGroup
+							className={classes.flex}
+							aria-label="recipeSize"
+							name="recipeSize"
+							value={sizeSelected}
+							onChange={handleChange}
+						>
+							<FormControlLabel value="small" control={<Radio />} label="Small" />
+							<FormControlLabel value="medium" control={<Radio />} label="Medium" />
+							<FormControlLabel value="double" control={<Radio />} label="Double" />
+						</RadioGroup>
+					</FormControl>
 				</Grid>
-				<Grid item md={4}>
-					<Typography style={{ margin: '0 0.5em' }}>Servings {servings}</Typography>
-				</Grid>
-				<Grid item md={2}>
-					<IconButton className={classes.root} size="small" onClick={() => increment()}>
-						<AddIcon />
-					</IconButton>
+				<Grid item>
+					<Typography style={{ margin: '0 0.5em' }}>Servings {currentServings}</Typography>
 				</Grid>
 			</Grid>
 		</CardContent>

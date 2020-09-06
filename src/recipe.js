@@ -9,20 +9,9 @@ const limiter = rateLimit({
 
 const router = express.Router();
 
-// let cachedData;
-// let cachedTime;
-// let cachedEquipment;
-// let cachedEquipmentTime;
-// let cachedInstructions;
-// let cachedInstructionsTime;
-
 const BASIC_URL = 'https://api.spoonacular.com/recipes/complexSearch?';
 
 router.get('/', limiter, async (req, res, next) => {
-	// if (cachedTime && cachedTime > Date.now() - 30 * 1000) {
-	// 	return res.json(cachedData);
-	// }
-
 	try {
 		const params = new URLSearchParams({
 			apiKey: process.env.SPOONACULAR_API_KEY,
@@ -32,82 +21,6 @@ router.get('/', limiter, async (req, res, next) => {
 
 		const { data } = await axios.get(`${BASIC_URL}${params}`);
 
-		// cachedData = data;
-		// cachedTime = Date.now();
-
-		return res.json(data);
-	} catch (error) {
-		return next(error);
-	}
-});
-
-router.get('/details/:id', limiter, async (req, res, next) => {
-	// if (cachedTime && cachedTime > Date.now() - 30 * 1000) {
-	// 	return res.json(cachedData);
-	// }
-
-	try {
-		const params = new URLSearchParams({
-			apiKey: process.env.SPOONACULAR_API_KEY,
-			includeNutrition: req.query.includeNutrition,
-			addRecipeInformation: req.query.addRecipeInformation,
-			instructionsRequired: req.query.instructionsRequired
-		});
-
-		const DETAILS_URL = `https://api.spoonacular.com/recipes/${req.params.id}/information?`;
-
-		const { data } = await axios.get(`${DETAILS_URL}${params}`);
-
-		// cachedEquipment = data;
-		// cachedTime = Date.now();
-
-		return res.json(data);
-	} catch (error) {
-		return next(error);
-	}
-});
-
-router.get('/instructions/:id', limiter, async (req, res, next) => {
-	// if (cachedInstructionsTime && cachedInstructionsTime > Date.now() - 30 * 1000) {
-	// 	return res.json(cachedInstructions);
-	// }
-
-	try {
-		const params = new URLSearchParams({
-			apiKey: process.env.SPOONACULAR_API_KEY,
-			stepBreakdown: req.query.stepBreakdown
-		});
-
-		const DETAILS_URL = `https://api.spoonacular.com/recipes/${req.params.id}/analyzedInstructions?`;
-
-		const { data } = await axios.get(`${DETAILS_URL}${params}`);
-
-		// cachedInstructions = data;
-		// cachedInstructionsTime = Date.now();
-
-		return res.json(data);
-	} catch (error) {
-		return next(error);
-	}
-});
-
-router.get('/equipment/:id', limiter, async (req, res, next) => {
-	// if (cachedEquipmentTime && cachedEquipmentTime > Date.now() - 30 * 1000) {
-	// 	return res.json(cachedEquipment);
-	// }
-
-	try {
-		const params = new URLSearchParams({
-			apiKey: process.env.SPOONACULAR_API_KEY
-		});
-
-		const EQUIPMENT_URL = `https://api.spoonacular.com/recipes/${req.params.id}/equipmentWidget.json?`;
-
-		const { data } = await axios.get(`${EQUIPMENT_URL}${params}`);
-
-		// cachedData = data;
-		// cachedTime = Date.now();
-
 		return res.json(data);
 	} catch (error) {
 		return next(error);
@@ -115,10 +28,6 @@ router.get('/equipment/:id', limiter, async (req, res, next) => {
 });
 
 router.get('/filter', limiter, async (req, res, next) => {
-	// if (cachedTime && cachedTime > Date.now() - 30 * 1000) {
-	// 	return res.json(cachedData);
-	// }
-
 	try {
 		const params = new URLSearchParams({
 			apiKey: process.env.SPOONACULAR_API_KEY,
@@ -134,8 +43,54 @@ router.get('/filter', limiter, async (req, res, next) => {
 
 		const { data } = await axios.get(`${BASIC_URL}${params}`);
 
-		// cachedData = data;
-		// cachedTime = Date.now();
+		return res.json(data);
+	} catch (error) {
+		return next(error);
+	}
+});
+
+router.get('/details/:id', limiter, async (req, res, next) => {
+	try {
+		const params = new URLSearchParams({
+			apiKey: process.env.SPOONACULAR_API_KEY,
+			includeNutrition: req.query.includeNutrition,
+			addRecipeInformation: req.query.addRecipeInformation,
+			instructionsRequired: req.query.instructionsRequired
+		});
+
+		const DETAILS_URL = `https://api.spoonacular.com/recipes/${req.params.id}/information?`;
+
+		const { data } = await axios.get(`${DETAILS_URL}${params}`);
+
+		return res.json(data);
+	} catch (error) {
+		return next(error);
+	}
+});
+
+router.get('/equipment/:id', limiter, async (req, res, next) => {
+	try {
+		const EQUIPMENT_URL = `https://api.spoonacular.com/recipes/${req.params
+			.id}/equipmentWidget.json?apiKey=${process.env.SPOONACULAR_API_KEY}`;
+
+		const { data } = await axios.get(EQUIPMENT_URL);
+
+		return res.json(data);
+	} catch (error) {
+		return next(error);
+	}
+});
+
+router.get('/instructions/:id', limiter, async (req, res, next) => {
+	try {
+		const params = new URLSearchParams({
+			apiKey: process.env.SPOONACULAR_API_KEY,
+			stepBreakdown: req.query.stepBreakdown
+		});
+
+		const DETAILS_URL = `https://api.spoonacular.com/recipes/${req.params.id}/analyzedInstructions?`;
+
+		const { data } = await axios.get(`${DETAILS_URL}${params}`);
 
 		return res.json(data);
 	} catch (error) {
