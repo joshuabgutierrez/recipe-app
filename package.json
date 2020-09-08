@@ -1,19 +1,20 @@
 {
-	"name": "express-api-starter",
-	"version": "1.2.0",
-	"description": " A basic starter for an express.js API",
-	"main": "index.js",
+	"name": "recipe-finder-app",
+	"version": "1.0.0",
+	"description": " A recipe finder built in React",
+	"main": "src/index.js",
 	"scripts": {
 		"start": "node src/index.js",
+		"heroku-postbuild": "cd client && npm install && npm run build",
 		"dev": "nodemon src/index.js",
 		"lint": "eslint --fix src",
 		"test": "mocha --exit"
 	},
 	"keywords": [],
-	"author": "CJ R. <cj@null.computer> (https://w3cj.now.sh)",
+	"author": "Joshua Gutierrez",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/w3cj/express-api-starter.git"
+		"url": "https://github.com/joshuabgutierrez/recipe-app"
 	},
 	"license": "MIT",
 	"dependencies": {

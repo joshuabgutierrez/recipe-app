@@ -2,11 +2,17 @@ const express = require('express');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
+const path = require('path');
 
 require('dotenv').config();
 
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
+	app.use(express.static('client/build'));
+	app.get('*', (req, res) => {
+		res.sendFile(path.join(__dirname + '/client/build/index.html'));
+	});
+}
 const middlewares = require('./middlewares');
-const api = require('./api');
 const recipe = require('./recipe');
 
 const app = express();
@@ -17,13 +23,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-	res.json({
-		message: '🦄🌈✨👋🌎🌍🌏✨🌈🦄'
-	});
-});
-
-app.use('/api/v1', api);
+app.use('/', (req, res) => res.json({ message: 'API Workign now' }));
 app.use('/recipe', recipe);
 
 app.use(middlewares.notFound);
