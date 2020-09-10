@@ -12,20 +12,16 @@ const recipe = require('./recipe');
 const app = express();
 app.set('trust proxy', 1);
 
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.join(__dirname, 'client/build')));
+}
+
 app.use(morgan('dev'));
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
-app.use('/', (req, res) => res.json({ message: 'API Workign now' }));
-app.use('/recipe', recipe);
-
-if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging') {
-	app.use(express.static('client/build'));
-	app.get('*', (req, res) => {
-		res.sendFile(path.join(__dirname + '/client/build/index.html'));
-	});
-}
+app.use('/', recipe);
 
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
