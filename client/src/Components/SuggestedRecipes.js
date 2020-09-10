@@ -70,7 +70,7 @@ const SuggestedRecipes = () => {
 		() => {
 			async function getData() {
 				try {
-					const response = await Axios.get('http://localhost:5000/recipe', {
+					const response = await Axios.get('http://localhost:5000/', {
 						params: { query: query, addRecipeInformation: true }
 					});
 					setResults(response.data.results);

@@ -23,7 +23,7 @@ const RecipesFound = () => {
 								title={result.title}
 								source={result.sourceName}
 								url={result.sourceUrl}
-								calories={Math.floor(Number(result.nutrition[0].amount))}
+								calories={Math.floor(Number(result.nutrition.nutrients[0].amount))}
 								servings={result.servings}
 								time={result.readyInMinutes}
 							/>
