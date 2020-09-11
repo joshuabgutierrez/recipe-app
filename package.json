@@ -3,6 +3,10 @@
 	"version": "1.0.0",
 	"description": " A recipe finder built in React",
 	"main": "src/index.js",
+	"engines": {
+		"node": "12.18.3"
+	},
+	"private": "true",
 	"scripts": {
 		"start": "node src/index.js",
 		"server": "nodemon src/index,js",
