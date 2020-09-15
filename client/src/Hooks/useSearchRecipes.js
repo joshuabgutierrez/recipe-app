@@ -10,7 +10,7 @@ const useSearchRecipes = ({ query, mealType, dietType, cuisine, intolerances, mi
 	useEffect(() => {
 		async function apiCall() {
 			try {
-				const response = await Axios.get('http://localhost:5000/filter', {
+				const response = await Axios.get('api/v1/recipe/filter', {
 					params: {
 						query,
 						type: mealType,

@@ -53,9 +53,7 @@ router.get('/details/:id', limiter, async (req, res, next) => {
 	try {
 		const params = new URLSearchParams({
 			apiKey: process.env.SPOONACULAR_API_KEY,
-			includeNutrition: req.query.includeNutrition,
-			addRecipeInformation: req.query.addRecipeInformation,
-			instructionsRequired: req.query.instructionsRequired
+			includeNutrition: req.query.includeNutrition
 		});
 
 		const DETAILS_URL = `https://api.spoonacular.com/recipes/${req.params.id}/information?`;

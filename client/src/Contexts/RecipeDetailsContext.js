@@ -8,9 +8,9 @@ export const RecipeDetailsContext = createContext();
 export const RecipeDetailsContextProvider = ({ children }) => {
 	const { id } = useParams();
 
-	const apiUri = `http://localhost:5000/details/${id}`;
-	const secondApiUri = `http://localhost:5000/equipment/${id}`;
-	const thirdUri = `http://localhost:5000/instructions/${id}`;
+	const apiUri = `api/v1/recipe/details/${id}`;
+	const secondApiUri = `api/v1/recipe/equipment/${id}`;
+	const thirdUri = `api/v1/recipe/instructions/${id}`;
 
 	const { data, utensils, instructions, loading } = useFetchDetails(apiUri, secondApiUri, thirdUri);
 
