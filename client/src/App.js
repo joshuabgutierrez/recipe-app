@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { InitialValuesContextProvider } from './Contexts/InitialValuesContext';
 import RecipeDetails from './Pages/RecipeDetails';
 import { RecipeDetailsContextProvider } from './Contexts/RecipeDetailsContext';
+import NotFound from './Pages/NotFound';
 
 function App() {
 	return (
@@ -19,6 +20,7 @@ function App() {
 								<RecipeDetails />
 							</RecipeDetailsContextProvider>
 						</Route>
+						<Route component={NotFound} />
 					</Switch>
 				</div>
 			</InitialValuesContextProvider>
