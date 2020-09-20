@@ -1,7 +1,6 @@
 import React from 'react';
 import { Grid, makeStyles, Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { mergeClasses } from '@material-ui/styles';
 
 const useStyles = makeStyles((theme) => ({
 	root: {

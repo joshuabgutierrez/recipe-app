@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SearchIcon from '@material-ui/icons/Search';
 import { Typography, makeStyles, InputAdornment, OutlinedInput } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -42,13 +42,14 @@ const StyledForm = styled.form`
 const FilterArea = () => {
 	const { input, category } = useContext(InitialValuesContext);
 	const classes = useStyles();
-	const [ query, setQuery ] = useState(input);
-	const [ mealType, setMealType ] = useState(category);
+	const [ query, setQuery ] = useState(input || '');
+	const [ mealType, setMealType ] = useState(category || '');
 	const [ dietType, setDietType ] = useState('');
 	const [ cuisine, setCuisine ] = useState('');
 	const [ intolerances, setIntolerances ] = useState([]);
 	const [ minCalories, setMinCalories ] = useState(0);
-	const [ maxCalories, setMaxCalories ] = useState(100);
+	const [ maxCalories, setMaxCalories ] = useState(200);
+	const [ isSubmit, setIsSubmit ] = useState(false);
 
 	const handleIntolerances = (newValue) => {
 		if (intolerances.includes(newValue)) {
@@ -58,24 +59,35 @@ const FilterArea = () => {
 		}
 	};
 
-	const formValues = {
+	const { recipes } = useSearchRecipes({
 		query,
 		mealType,
 		dietType,
 		cuisine,
 		intolerances,
 		minCalories,
-		maxCalories
-	};
+		maxCalories,
+		isSubmit
+	});
 
-	const { recipes } = useSearchRecipes(formValues);
 	const { getData } = useContext(FilteredResultsContext);
 	let history = useHistory();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		setIsSubmit(true);
 		getData(recipes);
 	};
+
+	useEffect(
+		() => {
+			getData(recipes);
+			return () => {
+				setIsSubmit(false);
+			};
+		},
+		[ recipes ]
+	);
 
 	return (
 		<StyledForm onSubmit={handleSubmit}>

@@ -20,7 +20,7 @@ const Results = () => {
 				<Typography variant="h4" align="center">
 					Recipe results
 				</Typography>
-				<Grid container className={classes.spacing} justify="center" spacing={1}>
+				<Grid container className={classes.spacing} justify="center">
 					<Grid item sm={12} md={4}>
 						<FilterArea />
 					</Grid>
