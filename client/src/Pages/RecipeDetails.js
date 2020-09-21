@@ -8,6 +8,7 @@ import { Grid, Typography } from '@material-ui/core';
 import styled from 'styled-components';
 import { useContext } from 'react';
 import { RecipeDetailsContext } from '../Contexts/RecipeDetailsContext';
+import { useHistory } from 'react-router-dom';
 
 const StyledImage = styled.img`
 	display: block;
@@ -17,7 +18,12 @@ const StyledImage = styled.img`
 `;
 
 const RecipeDetails = () => {
-	const { data, loading } = useContext(RecipeDetailsContext);
+	const history = useHistory();
+	const { data, loading, error } = useContext(RecipeDetailsContext);
+
+	if (error) {
+		history.push('/NotFound');
+	}
 
 	return (
 		<div style={{ padding: '3em' }}>

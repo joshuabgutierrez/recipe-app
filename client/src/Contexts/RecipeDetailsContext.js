@@ -12,7 +12,7 @@ export const RecipeDetailsContextProvider = ({ children }) => {
 	const secondApiUri = `api/v1/recipe/equipment/${id}`;
 	const thirdUri = `api/v1/recipe/instructions/${id}`;
 
-	const { data, utensils, instructions, loading } = useFetchDetails(apiUri, secondApiUri, thirdUri);
+	const { data, utensils, instructions, loading, error } = useFetchDetails(apiUri, secondApiUri, thirdUri);
 
 	function getNutrients() {
 		const nutrients = [ 'Calories', 'Carbohydrates', 'Protein', 'Fat', 'Sugar' ];
@@ -39,7 +39,7 @@ export const RecipeDetailsContextProvider = ({ children }) => {
 
 	return (
 		<RecipeDetailsContext.Provider
-			value={{ data, loading, getNutrients, getIngredients, getInstructions, utensils }}
+			value={{ data, loading, getNutrients, getIngredients, getInstructions, utensils, error }}
 		>
 			{children}
 		</RecipeDetailsContext.Provider>

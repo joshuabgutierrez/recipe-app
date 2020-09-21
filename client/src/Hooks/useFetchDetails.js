@@ -6,25 +6,30 @@ const useFetchDetails = (uri, equipmentUri, instructionsUri) => {
 	const [ utensils, setUtensils ] = useState(null);
 	const [ instructions, setInstructions ] = useState(null);
 	const [ loading, setLoading ] = useState(true);
+	const [ error, setError ] = useState(null);
 
 	async function fetchData() {
-		const response = await Axios.get(uri, {
-			params: { includeNutrition: true }
-		});
-		const secondResponse = await Axios.get(equipmentUri);
-		const thirdResponse = await Axios.get(instructionsUri, { params: { stepBreakdown: true } });
+		try {
+			const response = await Axios.get(uri, {
+				params: { includeNutrition: true }
+			});
+			const secondResponse = await Axios.get(equipmentUri);
+			const thirdResponse = await Axios.get(instructionsUri, { params: { stepBreakdown: true } });
 
-		setData(response.data);
-		setUtensils(secondResponse.data.equipment);
-		setInstructions(thirdResponse.data[0].steps);
-		setLoading(false);
+			setData(response.data);
+			setUtensils(secondResponse.data.equipment);
+			setInstructions(thirdResponse.data[0].steps);
+			setLoading(false);
+		} catch (err) {
+			setError(err);
+		}
 	}
 
 	useEffect(() => {
 		fetchData();
 	}, []);
 
-	return { data, utensils, instructions, loading };
+	return { data, utensils, instructions, loading, error };
 };
 
 export default useFetchDetails;
