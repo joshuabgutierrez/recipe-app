@@ -7,4 +7,10 @@ Technologies used:
 * [Material-UI](https://material-ui.com/)
 * [Styled-Components](https://styled-components.com/)
 
+![alt text](repo-images/recipe-repo-img1.png "Home page")
+</br>
 
+![alt text](repo-images/recipe-repo-img2.png "Results page")
+</br>
+
+![alt text](repo-images/recipe-repo-img3.png "Single page")
