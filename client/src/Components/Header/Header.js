@@ -1,53 +1,53 @@
 import React from 'react';
 import styled from 'styled-components';
-import homepageImage from '../../assets/homepage-image.jpg';
+import HomePageImage from '../../assets/homepage-image.jpg';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
 import SearchForm from './SearchForm';
+import { Grid } from '@material-ui/core';
 
 const ImageContainer = styled.div`
-	min-height: 70vh;
-	margin: 1em 0;
-	background: url(${homepageImage}) center no-repeat;
+	height: 90vh;
+	background: #000000;
+	overflow: hidden;
+	background: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(${HomePageImage});
+	background-position: center;
 	background-size: cover;
 	display: flex;
-	justify-content: center;
+	justify-content: 'center';
+	align-items: center;
 `;
 
 const useStyles = makeStyles({
 	textWhite: {
 		color: '#FFFFFF'
-	},
-	textCenter: {
-		textAlign: 'center'
-	},
-	marginTop: {
-		marginTop: '0.5em'
 	}
 });
-
-const StyledSearchArea = styled.div`
-	margin-top: 9em;
-	max-width: 500px;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-`;
 
 function Header() {
 	const classes = useStyles();
 
 	return (
 		<ImageContainer>
-			<StyledSearchArea>
-				<Typography variant="h4" className={`${classes.textWhite} ${classes.textCenter}`}>
-					Let's cook a new meal
-				</Typography>
-				<SearchForm />
-				<span className={`${classes.textWhite} ${classes.textCenter} ${classes.marginTop}`}>
-					Powered by the Spoonacular API
-				</span>
-			</StyledSearchArea>
+			<Grid container justify="center">
+				<Grid item xs={10} sm={10} md={6} lg={5}>
+					<Grid container>
+						<Grid item xs={12} sm={12} md={12} lg={12}>
+							<Typography variant="h5" align="center" className={classes.textWhite}>
+								Let's cook a new meal
+							</Typography>
+						</Grid>
+						<Grid item xs={12} sm={12} md={12} lg={12}>
+							<SearchForm />
+						</Grid>
+						<Grid item xs={12} sm={12} md={12} lg={12}>
+							<Typography variant="body2" align="center" className={classes.textWhite}>
+								Powered by the Spoonacular API
+							</Typography>
+						</Grid>
+					</Grid>
+				</Grid>
+			</Grid>
 		</ImageContainer>
 	);
 }

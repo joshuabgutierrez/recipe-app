@@ -11,12 +11,16 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
+const printYear = () => {
+	return new Date().getFullYear();
+};
+
 const Footer = () => {
 	const classes = useStyles();
 	return (
 		<footer className={classes.footerStyles}>
-			<Typography variant="h6" align="center">
-				&copy;2020 Joshua Gutierrez
+			<Typography variant="subtitle1" align="center">
+				&copy;{printYear()} Joshua Gutierrez
 			</Typography>
 		</footer>
 	);

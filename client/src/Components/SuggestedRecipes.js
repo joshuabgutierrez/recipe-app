@@ -29,6 +29,8 @@ const SuggestedButton = styled(Button)`
 	}
 `;
 
+const StyledSection = styled.section`margin-top: 2em;`;
+
 const SuggestedRecipes = () => {
 	const suggestions = [
 		{
@@ -71,7 +73,7 @@ const SuggestedRecipes = () => {
 			async function getData() {
 				try {
 					const response = await Axios.get('api/v1/recipe', {
-						params: { query: query, addRecipeInformation: true }
+						params: { query: query, addRecipeInformation: true, addRecipeNutrition: true }
 					});
 					setResults(response.data.results);
 				} catch (error) {
@@ -84,48 +86,54 @@ const SuggestedRecipes = () => {
 	);
 
 	return (
-		<div>
-			<Typography variant="h4" align="center">
-				Suggested Recipes
-			</Typography>
-			<Typography variant="body1" align="center">
-				Some recipes we think you might like
-			</Typography>
-			<RecipeButtonsContainer>
-				{suggestions.map((suggestion) => (
-					<SuggestedButton
-						variant="contained"
-						selected={selected === suggestion.id}
-						disableRipple={true}
-						key={suggestion.id}
-						onClick={() => handleClick(suggestion.id, suggestion.query)}
-					>
-						{suggestion.query}
-					</SuggestedButton>
-				))}
-			</RecipeButtonsContainer>
-			<Grid container spacing={2} justify="center" style={{ maxWidth: '100%' }}>
-				{results.length > 0 ? (
-					results.map((result) => (
-						<Grid item key={result.id}>
-							<RecipeContainer
-								id={result.id}
-								image={result.image}
-								title={result.title}
-								source={result.sourceName}
-								calories={400}
-								servings={result.servings}
-								time={result.readyInMinutes}
-							/>
-						</Grid>
-					))
-				) : (
-					<Typography variant="overline" align="center">
-						Loading...
+		<StyledSection>
+			<Grid container>
+				<Grid item xs={12} sm={12} md={12} lg={12}>
+					<Typography variant="h4" align="center">
+						Suggested Recipes
 					</Typography>
-				)}
+					<Typography variant="body1" align="center">
+						Some recipes we think you might like
+					</Typography>
+					<RecipeButtonsContainer>
+						{suggestions.map((suggestion) => (
+							<SuggestedButton
+								variant="contained"
+								selected={selected === suggestion.id}
+								disableRipple={true}
+								key={suggestion.id}
+								onClick={() => handleClick(suggestion.id, suggestion.query)}
+							>
+								{suggestion.query}
+							</SuggestedButton>
+						))}
+					</RecipeButtonsContainer>
+				</Grid>
+				<Grid item xs={12} sm={12} md={12} lg={12}>
+					<Grid container spacing={2} justify="center" style={{ maxWidth: '100%' }}>
+						{results.length > 0 ? (
+							results.map((result) => (
+								<Grid item key={result.id}>
+									<RecipeContainer
+										id={result.id}
+										image={result.image}
+										title={result.title}
+										source={result.sourceName}
+										calories={Math.floor(result.nutrition.nutrients[0].amount)}
+										servings={result.servings}
+										time={result.readyInMinutes}
+									/>
+								</Grid>
+							))
+						) : (
+							<Typography variant="overline" align="center">
+								Loading...
+							</Typography>
+						)}
+					</Grid>
+				</Grid>
 			</Grid>
-		</div>
+		</StyledSection>
 	);
 };
 

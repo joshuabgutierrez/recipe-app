@@ -11,18 +11,16 @@ function App() {
 	return (
 		<Router>
 			<InitialValuesContextProvider>
-				<div className="App">
-					<Switch>
-						<Route exact path="/" component={Home} />
-						<Route exact path="/results" component={Results} />
-						<Route path="/results/:id">
-							<RecipeDetailsContextProvider>
-								<RecipeDetails />
-							</RecipeDetailsContextProvider>
-						</Route>
-						<Route component={NotFound} />
-					</Switch>
-				</div>
+				<Switch>
+					<Route exact path="/" component={Home} />
+					<Route exact path="/results" component={Results} />
+					<Route path="/results/:id">
+						<RecipeDetailsContextProvider>
+							<RecipeDetails />
+						</RecipeDetailsContextProvider>
+					</Route>
+					<Route component={NotFound} />
+				</Switch>
 			</InitialValuesContextProvider>
 		</Router>
 	);

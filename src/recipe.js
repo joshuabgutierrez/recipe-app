@@ -16,7 +16,8 @@ router.get('/', limiter, async (req, res, next) => {
 		const params = new URLSearchParams({
 			apiKey: process.env.SPOONACULAR_API_KEY,
 			query: req.query.query,
-			addRecipeInformation: req.query.addRecipeInformation
+			addRecipeInformation: req.query.addRecipeInformation,
+			addRecipeNutrition: req.query.addRecipeNutrition
 		});
 
 		const { data } = await axios.get(`${BASIC_URL}${params}`);

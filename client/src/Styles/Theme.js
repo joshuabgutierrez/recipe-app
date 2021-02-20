@@ -11,13 +11,7 @@ const theme = createMuiTheme({
 	},
 
 	typography: {
-		fontFamily: [ 'Nunito', 'sans-serif' ].join(','),
-		h4: {
-			fontWeight: 700
-		},
-		subtitle2: {
-			fontWeight: 700
-		}
+		fontFamily: [ 'Nunito', 'sans-serif' ].join(',')
 	},
 
 	overrides: {
@@ -25,8 +19,14 @@ const theme = createMuiTheme({
 			'@global': {
 				a: {
 					textDecoration: 'none',
-					color: '#000',
-					fontWeight: 800
+					color: '#000'
+				}
+			}
+		},
+		MuiSelect: {
+			select: {
+				'&:focus': {
+					backgroundColor: '#fff'
 				}
 			}
 		}

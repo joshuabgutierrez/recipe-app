@@ -1,39 +1,30 @@
 import React from 'react';
-import RestaurantIcon from '@material-ui/icons/Restaurant';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/styles';
 import styled from 'styled-components';
-
-const useStyles = makeStyles({
-	fontSizeLarge: {
-		fontSize: '70px'
-	},
-
-	logoStyles: {
-		alignSelf: 'center',
-		margin: '0 0.25em',
-		fontStyle: 'italic',
-		fontWeight: 600
-	}
-});
+import { IoRestaurant as AppIcon } from 'react-icons/io5';
 
 const StyledNav = styled.nav`
 	display: flex;
 	justify-content: center;
-	margin: 1em 0;
+	align-items: center;
+	padding: 0.5em 0;
+	font-style: italic;
 `;
+
+const useStyles = makeStyles({
+	icon: {
+		margin: '0 1em'
+	}
+});
 
 function Navbar() {
 	const classes = useStyles();
 	return (
 		<StyledNav>
-			<Typography className={classes.logoStyles} variant="h4">
-				Mom's
-			</Typography>
-			<RestaurantIcon color="primary" className={classes.fontSizeLarge} />
-			<Typography className={classes.logoStyles} variant="h4">
-				Recipes
-			</Typography>
+			<Typography variant="h3">Easy</Typography>
+			<AppIcon size={50} className={classes.icon} />
+			<Typography variant="h3">Recipes</Typography>
 		</StyledNav>
 	);
 }
