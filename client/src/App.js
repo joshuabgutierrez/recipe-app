@@ -2,9 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbar/Navbar';
-import Home from './pages/Home';
-import Recipe from './pages/Recipe';
-import Results from './pages/Results';
+import Recipe from './Pages/Recipe';
+import Results from './Pages/Results';
+import Home from './Pages/Home';
 
 function App() {
 	return (
