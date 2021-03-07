@@ -22,12 +22,6 @@ if (process.env.NODE_ENV === 'development') {
 	app.use(morgan('dev'));
 }
 
-app.get('/', (req, res) => {
-	res.json({
-		message: 'Hello from the main route /'
-	});
-});
-
 app.use('/api/recipes', api);
 app.use('/results/api/recipes', api);
 
