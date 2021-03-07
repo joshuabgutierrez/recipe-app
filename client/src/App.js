@@ -1,27 +1,28 @@
 import React from 'react';
-import Home from './Pages/Home';
-import Results from './Pages/FilteredResults';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { InitialValuesContextProvider } from './Contexts/InitialValuesContext';
-import RecipeDetails from './Pages/RecipeDetails';
-import { RecipeDetailsContextProvider } from './Contexts/RecipeDetailsContext';
-import NotFound from './Pages/NotFound';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import Footer from './components/Footer/Footer';
+import Navbar from './components/Navbar/Navbar';
+import Home from './pages/Home';
+import Recipe from './pages/Recipe';
+import Results from './pages/Results';
 
 function App() {
 	return (
 		<Router>
-			<InitialValuesContextProvider>
-				<Switch>
-					<Route exact path="/" component={Home} />
-					<Route exact path="/results" component={Results} />
-					<Route path="/results/:id">
-						<RecipeDetailsContextProvider>
-							<RecipeDetails />
-						</RecipeDetailsContextProvider>
-					</Route>
-					<Route component={NotFound} />
-				</Switch>
-			</InitialValuesContextProvider>
+			<Navbar />
+			<Switch>
+				<Route exact path="/">
+					<Home />
+				</Route>
+				<Route exact path="/results">
+					<Results />
+				</Route>
+				<Route exact path="/results/:id">
+					<Recipe />
+				</Route>
+				<Redirect to="/" />
+			</Switch>
+			<Footer />
 		</Router>
 	);
 }

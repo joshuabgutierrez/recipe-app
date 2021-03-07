@@ -32,16 +32,16 @@ function Header() {
 			<Grid container justify="center">
 				<Grid item xs={10} sm={10} md={6} lg={5}>
 					<Grid container>
-						<Grid item xs={12} sm={12} md={12} lg={12}>
+						<Grid item xs={12}>
 							<Typography variant="h5" align="center" className={classes.textWhite}>
 								Let's cook a new meal
 							</Typography>
 						</Grid>
-						<Grid item xs={12} sm={12} md={12} lg={12}>
+						<Grid item xs={12}>
 							<SearchForm />
 						</Grid>
-						<Grid item xs={12} sm={12} md={12} lg={12}>
-							<Typography variant="body2" align="center" className={classes.textWhite}>
+						<Grid item xs={12}>
+							<Typography variant="subtitle2" align="center" className={classes.textWhite}>
 								Powered by the Spoonacular API
 							</Typography>
 						</Grid>
