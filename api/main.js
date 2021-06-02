@@ -5,7 +5,7 @@ const slowDown = require('express-slow-down');
 
 const limiter = rateLimit({
 	windowMs: 60 * 1000, // 1 minute - 60 seconds
-	max: 6 // limit each IP to 6 requests per windowMs
+	max: 10 // limit each IP to 6 requests per windowMs
 });
 
 const speedLimiter = slowDown({
